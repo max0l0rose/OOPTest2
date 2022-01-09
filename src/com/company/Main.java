@@ -2,6 +2,11 @@ package com.company;
 
 public class Main {
 
+    class CBar extends CFoo {
+        private int privateField2 = 2;
+        private int privateField;
+    }
+
     interface I0 {
     }
 
@@ -35,10 +40,19 @@ public class Main {
     public static void main(String[] args) {
         //int q = I1.statFunc();
 
-        CFoo cFoo = null;
-        cFoo.func();
+        new Main().solution();
+
+        CFoo cFoo2 = null;
+        cFoo2.staticFunc();
+
     }
 
+
+    void solution() {
+        CBar cBar = new CBar();
+        cBar.privateField = 2; // Does not access to the parent private field
+        cBar.privateField2 = 20;
+    }
 }
 
 
