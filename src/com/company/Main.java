@@ -1,6 +1,10 @@
 package com.company;
 
+import com.pack.CFoo;
+
 public class Main {
+
+    CFoo foo = new CFoo();
 
     class CBar extends CFoo {
         private int privateField2 = 2;
@@ -42,16 +46,20 @@ public class Main {
 
         new Main().solution();
 
-        CFoo cFoo2 = null;
-        cFoo2.staticFunc();
+//        CFoo cFoo2 = null;
+//        cFoo2.staticFunc(); // OK!
 
     }
 
 
     void solution() {
-        CBar cBar = new CBar();
-        cBar.privateField = 2; // Does not access to the parent private field
-        cBar.privateField2 = 20;
+        foo.field = 5;
+
+        CBar bar = new CBar();
+        bar.privateField = 2; // Does not access to the parent private field
+        bar.privateField2 = 20;
+        bar.field = 4;
+        int res = bar.getDef();
     }
 }
 
