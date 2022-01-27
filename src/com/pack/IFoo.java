@@ -4,17 +4,20 @@ public interface IFoo {
 
 	int field = 1; // need to be initialized
 
-	int getPrivateField();
+	int getField();
 
-	default int getDef() {
-		return getPrivateField() + getPrivFieldStatic() + privMethod();
+	default int defFunc() {
+		return getField() + privStaticFunc() + privFunc();
 	}
 
-	private static int getPrivFieldStatic() {
+	 static int privStaticFunc() {
+		//privFunc(); // error
+		//defFunc(); // error
 		return 2;
 	}
 
-	private int privMethod() {
+	private int privFunc() {
+		privStaticFunc();
 		return 3;
 	}
 }

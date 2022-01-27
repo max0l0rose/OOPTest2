@@ -1,47 +1,30 @@
 package com.company;
 
 import com.pack.CFoo;
+import com.pack.IFoo;
+import com.pack2.ModifAccessChange;
+import com.pack2.ModifAccessChange2;
 
 public class Main {
 
     CFoo foo = new CFoo();
 
     class CBar extends CFoo {
-        private int privateField2 = 2;
-        private int privateField;
+        public int field;
     }
 
-    interface I0 {
-    }
-
-    @FunctionalInterface
-    interface I1 extends I0
-    {
-        int a = 1;
-        int func();
-
-        static int statFunc() {
-            return a;
-        }
-
-        default int defFunc() {
-            return a;
-        }
-    }
-
-
-    class C1 implements I1 {
-
-        int a = 2;
-
-        @Override
-        public int func() {
-            return a;
-        }
-    }
 
 
     public static void main(String[] args) {
+
+        //ModifAccessChange modifAccessChange = new ModifAccessChange();
+        ModifAccessChange modifAccessChangeA = new ModifAccessChange2();
+        ModifAccessChange2 modifAccessChange2Cast = (ModifAccessChange2)modifAccessChangeA;
+
+        int q = modifAccessChange2Cast.func();
+
+        //new AbsctractFoo(); cannot inst abstract class
+
         //int q = I1.statFunc();
 
         new Main().solution();
@@ -53,13 +36,20 @@ public class Main {
 
 
     void solution() {
-        foo.field = 5;
 
         CBar bar = new CBar();
-        bar.privateField = 2; // Does not access to the parent private field
-        bar.privateField2 = 20;
-        bar.field = 4;
-        int res = bar.getDef();
+        bar.field = 4; // Cool, but this is NOT right field from parent.... (((
+        //bar.field2 = 5; // error despite the fact that it is a nested class...
+        bar.defFunc();
+        bar.getField();
+        //bar.privStaticFunc(); // error
+        //bar.privFunc(); // error
+
+        IFoo foo = new CFoo();
+        foo.defFunc(); // def - ok
+        int w = foo.field;
+
+        int a = 1;
     }
 }
 
